@@ -9,6 +9,7 @@ from config import *
 from data_acquisition import DataAcquisition
 import customtkinter as ctk
 from stream_data import StreamData
+import re
 
 class GUI:
     all_indicators = talib.get_function_groups()
@@ -324,10 +325,6 @@ class GUI:
         self.indicator_frame.pack(padx=70, pady=(20, 5), fill='both')
         self.indicator_frame.pack_propagate(False)
 
-
-
-
-
         self.chose_indicator_label = ctk.CTkLabel(self.indicator_frame, text='Number of Indicators',
                                                   font=ctk.CTkFont(weight='bold'))
         self.chose_indicator_label.pack(padx=12, pady=12)
@@ -540,14 +537,46 @@ class GUI:
         self.historical_data_frame()
         self.select_n_indicator_frame()
 
+    def check_regex(self,files):
+        pattern=r'^(.*?)_\d+[a-z]*_\d+._'
+        filtered_files = [filename for filename in files if re.search(pattern, filename)]
+        return filtered_files
 
 
+
+    def chose_strat_frame(self):
+
+        self.indicator_frame = ctk.CTkFrame(master=self.data_frame, width=175, height=150)
+        self.indicator_frame.pack(padx=70, pady=(20, 5), fill='both')
+        self.indicator_frame.pack_propagate(False)
+
+        self.chose_indicator_label = ctk.CTkLabel(self.indicator_frame, text='Chose File For Strat',
+                                                      font=ctk.CTkFont(weight='bold'))
+        self.chose_indicator_label.pack(padx=12, pady=12)
+        files = os.listdir('historical_data')
+        files = self.check_regex(files)
+
+
+        self.file_combobox = ctk.CTkComboBox(self.indicator_frame, values=files)
+
+        self.file_combobox.set(files[0])  # Set default value
+        self.file_combobox.pack()
 
     # Backtest
     def backtest(self):
         self.clearFrame()
         self.backtest_menu_frame()
         self.historical_data_frame()
+        self.chose_strat_frame()
+
+    def create_strat(self):
+        self.clearFrame()
+        self.backtest_menu_frame()
+        self.historical_data_frame()
+        self.chose_strat_frame()
+
+
+
 
     def navigate_to_dashboard(self):
 
@@ -567,7 +596,7 @@ class GUI:
         self.button1 = ctk.CTkButton(master=self.frame, text="Add Indicator", command=self.indicator_cyle)
         self.button1.pack(pady=10, padx=12)
 
-        self.button2 = ctk.CTkButton(master=self.frame, text="Create Strat", command=self.backtest)
+        self.button2 = ctk.CTkButton(master=self.frame, text="Create Strat", command=self.create_strat)
         self.button2.pack(pady=10, padx=12)
 
         self.button3 = ctk.CTkButton(master=self.frame, text="Backtest", command=self.backtest)

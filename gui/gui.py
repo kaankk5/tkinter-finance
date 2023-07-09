@@ -106,7 +106,7 @@ class GUI:
         self.interval_frame = ctk.CTkFrame(master=self.data_frame, width=175, height=100)
         self.interval_frame.pack(padx=70, pady=(20, 5), fill='both')
 
-        self.interval_label = ctk.CTkLabel(self.interval_frame, text='Choose Interval', font=ctk.CTkFont(weight='bold'))
+        self.interval_label = ctk.CTkLabel(self.interval_frame, text='Chose Interval', font=ctk.CTkFont(weight='bold'))
         self.interval_label.grid(row=0, column=0, padx=10, pady=10)
 
         self.interval_value = ctk.StringVar(value='1m')
@@ -558,7 +558,6 @@ class GUI:
 
 
         self.file_combobox = ctk.CTkComboBox(self.indicator_frame, values=files)
-
         self.file_combobox.set(files[0])  # Set default value
         self.file_combobox.pack()
 
@@ -569,11 +568,68 @@ class GUI:
         self.historical_data_frame()
         self.chose_strat_frame()
 
+
+
+    def get_strat(self):
+        self.file_name = self.file_combobox.get()
+        self.strat_page_2()
+
+
+    def strat_page_2(self):
+        self.clearFrame()
+        self.backtest_menu_frame()
+        self.historical_data_frame()
+        self.strat_values_frame()
+        self.submit_button = ctk.CTkButton(self.data_frame, text='Select', command=self.get_indicator_names_wrapper)
+        self.submit_button.pack(padx=40, fill='x')
+
+    def strat_values_frame(self):
+
+        self.form_frame = ctk.CTkFrame(master=self.data_frame, width=700, height=700)
+        self.form_frame.pack(pady=30, padx=40, fill='x')
+        self.form_frame.pack_propagate(False)
+
+        self.strat_name_label = ctk.CTkLabel(self.form_frame, text='Strategy Name', font=ctk.CTkFont(weight='bold'))
+
+        self.strat_name_label.grid(row=0, column=0, padx=10, pady=(20,10))
+        self.strategy_name_entry = ctk.CTkEntry(self.form_frame)
+        self.strategy_name_entry.grid(row=0, column=1, padx=10, pady=(20,10))
+
+        label = ctk.CTkLabel(self.form_frame, text='.py file name')
+        label.grid(row=0, column=2, padx=10, pady=(20, 10))
+
+        self.capital_label = ctk.CTkLabel(self.form_frame, text='Initial Capital',  anchor='w', font=ctk.CTkFont(weight='bold'))
+        self.capital_label.grid(row=1, column=0, padx=10, pady=10)
+        self.capital_entry = ctk.CTkEntry(self.form_frame)
+        self.capital_entry.grid(row=1, column=1, padx=10, pady=10)
+
+        label1 = ctk.CTkLabel(self.form_frame, text='Only integer')
+        label1.grid(row=1, column=2, padx=10, pady=(20, 10))
+
+        self.leverage = ctk.CTkLabel(self.form_frame, text='Leverage',font=ctk.CTkFont(weight='bold'))
+        self.leverage.grid(row=2, column=0, padx=10, pady=10)
+        self.leverage_entry = ctk.CTkEntry(self.form_frame)
+        self.leverage_entry.grid(row=2, column=1, padx=10, pady=10)
+
+        label2 = ctk.CTkLabel(self.form_frame, text='Only integer')
+        label2.grid(row=2, column=2, padx=10, pady=(20, 10))
+
+        self.stop_loss_label = ctk.CTkLabel(self.form_frame, text='Stop Loss',font=ctk.CTkFont(weight='bold'))
+        self.stop_loss_label.grid(row=3, column=0, padx=10,pady=(10,20))
+        self.stop_loss_entry = ctk.CTkEntry(self.form_frame)
+        self.stop_loss_entry.grid(row=3, column=1, padx=10,pady=(10,20))
+
+        label3 = ctk.CTkLabel(self.form_frame, text='Only integer')
+
+        label3.grid(row=3,column=2, padx=10, pady=(20, 10))
+
     def create_strat(self):
         self.clearFrame()
         self.backtest_menu_frame()
         self.historical_data_frame()
         self.chose_strat_frame()
+        self.submit_button = ctk.CTkButton(self.data_frame, text='Select', command=self.get_strat)
+        self.submit_button.pack(padx=70, pady=20, fill='x')
 
 
 

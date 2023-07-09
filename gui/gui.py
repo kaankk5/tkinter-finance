@@ -575,12 +575,19 @@ class GUI:
         self.strat_page_2()
 
 
+    def strat_save_params(self):
+        name = self.strategy_name_entry.get()
+        capital = self.capital_entry.get()
+        leverage = self.leverage_entry.get()
+        stop_loss = self.stop_loss_entry.get()
+
+
     def strat_page_2(self):
         self.clearFrame()
         self.backtest_menu_frame()
         self.historical_data_frame()
         self.strat_values_frame()
-        self.submit_button = ctk.CTkButton(self.data_frame, text='Select', command=self.get_indicator_names_wrapper)
+        self.submit_button = ctk.CTkButton(self.data_frame, text='Select', command=self.strat_save_params)
         self.submit_button.pack(padx=40, fill='x')
 
     def strat_values_frame(self):
@@ -610,6 +617,8 @@ class GUI:
         self.leverage.grid(row=2, column=0, padx=10, pady=10)
         self.leverage_entry = ctk.CTkEntry(self.form_frame)
         self.leverage_entry.grid(row=2, column=1, padx=10, pady=10)
+
+
 
         label2 = ctk.CTkLabel(self.form_frame, text='Only integer')
         label2.grid(row=2, column=2, padx=10, pady=(20, 10))

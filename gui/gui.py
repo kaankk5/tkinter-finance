@@ -51,6 +51,8 @@ class GUI:
         else:
             print("Invalid credentials")
 
+
+
     def login(self):
 
         self.frame = ctk.CTkFrame(master=self.root)
@@ -580,6 +582,10 @@ class GUI:
         capital = self.capital_entry.get()
         leverage = self.leverage_entry.get()
         stop_loss = self.stop_loss_entry.get()
+
+
+
+
 
 
     def strat_page_2(self):

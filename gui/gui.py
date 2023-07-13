@@ -670,6 +670,11 @@ class GUI:
         self.button2 = ctk.CTkButton(master=self.frame, text="Create Strat", command=self.create_strat)
         self.button2.pack(pady=10, padx=12)
 
+        self.button12 = ctk.CTkButton(master=self.frame, text="View Chart", command=self.create_strat)
+        self.button12.pack(pady=10, padx=12)
+
+
+
         self.button3 = ctk.CTkButton(master=self.frame, text="Backtest", command=self.backtest)
         self.button3.pack(pady=10, padx=12)
 
